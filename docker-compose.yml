@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:15
+    container_name: notification_db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./notification_service/app/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+  notification_service:
+    build:
+      context: ./notification_service
+    container_name: notification_service
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:

@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+asyncpg
+aiosmtplib
+telethon
+httpx
+python-dotenv
